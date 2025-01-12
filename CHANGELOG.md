@@ -1,5 +1,45 @@
 # Changelog
 
+## [3.0.0](https://github.com/eggjs/static/compare/v2.3.1...v3.0.0) (2025-01-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop Node.js < 18.19.0 support
+
+part of https://github.com/eggjs/egg/issues/3644
+
+https://github.com/eggjs/egg/issues/5257
+
+<!-- This is an auto-generated comment: release notes by coderabbit.ai
+-->
+
+## Summary by CodeRabbit
+
+- **New Features**
+	- Updated package to `@eggjs/static`
+	- Enhanced TypeScript support
+	- Improved static file serving configuration
+
+- **Chores**
+	- Updated GitHub Actions workflows
+	- Modernized project configuration
+	- Updated Node.js version support to 18.19.0, 20, and 22
+
+- **Documentation**
+	- Updated README with new package details
+	- Simplified changelog and documentation
+
+- **Refactor**
+	- Migrated from CommonJS to ES modules
+	- Restructured project file organization
+
+<!-- end of auto-generated comment: release notes by coderabbit.ai -->
+
+### Features
+
+* support cjs and esm both by tshy ([#26](https://github.com/eggjs/static/issues/26)) ([ab7d6fb](https://github.com/eggjs/static/commit/ab7d6fbed5c215febecca8a5f1a5b8e5515d99a2))
+
 ## [2.3.1](https://github.com/eggjs/egg-static/compare/v2.3.0...v2.3.1) (2023-02-13)
 
 
