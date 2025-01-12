@@ -47,7 +47,8 @@ describe('test/static.test.ts', () => {
         .set('range', 'bytes=0-10')
         .expect('Content-Length', '11')
         .expect('Accept-Ranges', 'bytes')
-        .expect('Content-Range', 'bytes 0-10/20')
+        .expect('Content-Range',
+          process.platform === 'win32' ? 'bytes 0-10/21' : 'bytes 0-10/20')
         .expect('console.log')
         .expect(206);
     });
@@ -141,7 +142,9 @@ describe('test/static.test.ts', () => {
         .set('range', 'bytes=0-10')
         .expect('Content-Length', '11')
         .expect('Accept-Ranges', 'bytes')
-        .expect('Content-Range', 'bytes 0-10/20')
+        .expect('Content-Range',
+          process.platform === 'win32' ? 'bytes 0-10/21' : 'bytes 0-10/20',
+        )
         .expect('console.log')
         .expect(206);
     });
@@ -193,7 +196,9 @@ describe('test/static.test.ts', () => {
         .set('range', 'bytes=0-10')
         .expect('Content-Length', '11')
         .expect('Accept-Ranges', 'bytes')
-        .expect('Content-Range', 'bytes 0-10/20')
+        .expect('Content-Range',
+          process.platform === 'win32' ? 'bytes 0-10/21' : 'bytes 0-10/20',
+        )
         .expect('console.log')
         .expect(206);
     });
