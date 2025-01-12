@@ -1,10 +1,18 @@
-const path = require('path');
-const fs = require('fs/promises');
-const mock = require('egg-mock');
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import fs from 'node:fs/promises';
+import { mock, MockApplication } from '@eggjs/mock';
 
-describe('test/static.test.js', () => {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export function getFixtures(filename: string) {
+  return path.join(__dirname, 'fixtures', filename);
+}
+
+describe('test/static.test.ts', () => {
   describe('serve public', () => {
-    let app;
+    let app: MockApplication;
     before(() => {
       app = mock.app({
         baseDir: 'static-server',
@@ -39,7 +47,8 @@ describe('test/static.test.js', () => {
         .set('range', 'bytes=0-10')
         .expect('Content-Length', '11')
         .expect('Accept-Ranges', 'bytes')
-        .expect('Content-Range', 'bytes 0-10/20')
+        .expect('Content-Range',
+          process.platform === 'win32' ? 'bytes 0-10/21' : 'bytes 0-10/20')
         .expect('console.log')
         .expect(206);
     });
@@ -54,8 +63,8 @@ describe('test/static.test.js', () => {
   });
 
   describe('serve dist', () => {
-    let app;
-    const jsFile = path.join(__dirname, 'fixtures/static-server-dist/dist/static/app/a.js');
+    let app: MockApplication;
+    const jsFile: string = getFixtures('static-server-dist/dist/static/app/a.js');
     before(async () => {
       await fs.writeFile(jsFile, 'console.log(\'a\')');
       app = mock.app({
@@ -88,7 +97,7 @@ describe('test/static.test.js', () => {
   });
 
   describe('serve custom using config.js', () => {
-    let app;
+    let app: MockApplication;
     before(() => {
       app = mock.app({
         baseDir: 'static-server-custom',
@@ -107,8 +116,8 @@ describe('test/static.test.js', () => {
   });
 
   describe('serve multiple folder with options.dir', () => {
-    let app;
-    const jsFile = path.join(__dirname, 'fixtures/static-server-with-dir/dist/static/app/a.js');
+    let app: MockApplication;
+    const jsFile = getFixtures('static-server-with-dir/dist/static/app/a.js');
     before(async () => {
       await fs.writeFile(jsFile, 'console.log(\'a\')');
       app = mock.app({
@@ -133,7 +142,9 @@ describe('test/static.test.js', () => {
         .set('range', 'bytes=0-10')
         .expect('Content-Length', '11')
         .expect('Accept-Ranges', 'bytes')
-        .expect('Content-Range', 'bytes 0-10/20')
+        .expect('Content-Range',
+          process.platform === 'win32' ? 'bytes 0-10/21' : 'bytes 0-10/20',
+        )
         .expect('console.log')
         .expect(206);
     });
@@ -159,8 +170,8 @@ describe('test/static.test.js', () => {
   });
 
   describe('serve multiple folder with options.dirs', () => {
-    let app;
-    const jsFile = path.join(__dirname, 'fixtures/static-server-with-dirs/dist/static/app/a.js');
+    let app: MockApplication;
+    const jsFile = getFixtures('static-server-with-dirs/dist/static/app/a.js');
     before(async () => {
       await fs.writeFile(jsFile, 'console.log(\'a\')');
       app = mock.app({
@@ -185,7 +196,9 @@ describe('test/static.test.js', () => {
         .set('range', 'bytes=0-10')
         .expect('Content-Length', '11')
         .expect('Accept-Ranges', 'bytes')
-        .expect('Content-Range', 'bytes 0-10/20')
+        .expect('Content-Range',
+          process.platform === 'win32' ? 'bytes 0-10/21' : 'bytes 0-10/20',
+        )
         .expect('console.log')
         .expect(206);
     });
