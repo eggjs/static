@@ -1,18 +1,15 @@
-name: CI
+name: CI for 2.x
 
 on:
   push:
-    branches: [ master ]
-
+    branches: [ 2.x ]
   pull_request:
-    branches: [ master ]
-
-  workflow_dispatch: {}
+    branches: [ 2.x ]
 
 jobs:
   Job:
     name: Node.js
-    uses: artusjs/github-actions/.github/workflows/node-test.yml@v1
+    uses: node-modules/github-actions/.github/workflows/node-test.yml@master
     with:
       os: 'ubuntu-latest, windows-latest'
-      version: '14, 16, 18'
+      version: '14, 16, 18, 20, 22'
